@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-import SignUpForm from './pages/SignUpForm';
-import SignInForm from './pages/SignInForm';
+import SignUpForm from '../pages/SignUpForm';
+import SignInForm from '../pages/SignInForm';
 import './App.css';
 
 function App() {

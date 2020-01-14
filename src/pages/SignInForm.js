@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { login } from '../util/APIUtil';
+import { notification } from 'antd';
 
-class SignInForm extends Component {
+class SignInForm extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -15,7 +17,7 @@ class SignInForm extends Component {
 
     handleChange(e) {
         let target = e.target;
-        let value = target.type === 'checkbox' ? target.checked : target.value;
+        let value = target.value;
         let name = target.name;
 
         this.setState({
@@ -24,10 +26,30 @@ class SignInForm extends Component {
     }
 
     handleSubmit(e) {
+        // Prevent a submit button from submitting a form
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
+        let loginRequest = {}; 
+        loginRequest.username = this.state.email; 
+        loginRequest.password = this.state.password; 
+        login(loginRequest)
+            .then(response => {
+                console.log('Found user :');
+                console.log(response);
+            }).catch(error => {
+                if (error.status === 401) {
+                    notification.error({
+                        message: 'Error!',
+                        description: 'Your Username or Password is incorrect. Please try again!'
+                    });
+                } else {
+                    notification.error({
+                        message: 'Error!',
+                        description: error.message || 'Sorry! Something went wrong. Please try again!'
+                    });
+                }
+            });
+        
+      
     }
 
     render() {
@@ -45,7 +67,6 @@ class SignInForm extends Component {
                         <input type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password"
                             value={this.state.password} onChange={this.handleChange} />
                     </div>
-
 
                     <div className="FormField">
                         <button className="FormField__Button mr-20">Sign In</button>
