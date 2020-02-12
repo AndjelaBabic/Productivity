@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { login } from '../util/APIUtil';
+import { login } from '../../util/APIUtil';
 import { notification } from 'antd';
 
 class SignInForm extends React.Component {
