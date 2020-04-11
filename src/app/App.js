@@ -4,7 +4,7 @@ import SignUpForm from '../pages/Login/SignUpForm';
 import SignInForm from '../pages/Login/SignInForm';
 import './App.css';
 import MainForm from '../pages/Login/MainForm';
-import ToDo from '../pages/ToDo/ToDo';
+import Board from '../pages/ToDo/Board';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <div className="App">
       <Switch>
       <Route exact path="/" component={MainForm}></Route>
-      <Route path="/todo" component={ToDo}></Route>
+      <Route path="/todo" component={Board}></Route>
       </Switch>
       </div>
     </Router>

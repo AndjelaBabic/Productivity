@@ -143,13 +143,15 @@
 /* TODOs */
 
 .listOfTodos{
-  background-color: #3f3160;
+  background-color: #2E4158;
   min-height:500px;
   width: 400px;
-  margin: 40px auto;
+  margin-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-#to-do-form input{
+.to-do-form input{
   background-color: rgba(27, 112, 137, 1);
   border: 0; 
   color: #fff;
@@ -160,22 +162,26 @@
   font-size: 18px;
   border-radius: 10px;
 }
-#to-do-form input::placeholder{
+.to-do-form input::placeholder{
   color: rgba(255,255,255,0.5);
 }
-#to-do-form input:focus{
+.to-do-form input:focus{
   outline: none;
 }
-#to-do-form button{
+.to-do-form button{
   height: 50px;
   width: 80px;
-  border-radius: 5px;
+  border-radius: 25px;
   border: 0;
-  background-color:rgba(202, 156, 24, 1); 
+  background-color:#52C4B9;
   cursor: pointer;
 }
-#to-do-form button:focus{
+.to-do-form button:focus{
   outline: none;
+}
+
+.to-do-form h4{
+  text-align: center  ;
 }
 
 /* List items */
@@ -185,7 +191,7 @@
   width: 300px;
   margin: 20px auto;
   height: 50px;
-  background-color: #bf07ac;
+  background-color: rgba(27, 112, 137, 1);  
   border-radius: 5px;
 }
 .list p{
@@ -226,3 +232,8 @@
   transition: opacity 300ms ease-in
 }
 /* List items end */
+
+.row_board{
+  display:flex; 
+  flex-direction:row;
+}
