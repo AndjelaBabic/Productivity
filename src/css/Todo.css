@@ -1,0 +1,96 @@
+
+.listOfTodos{
+    background-color: #2E4158;
+    min-height:500px;
+    width: 400px;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .to-do-form input{
+    background-color: rgba(27, 112, 137, 1);
+    border: 0; 
+    color: #fff;
+    width: 200px;
+    height: 50px;
+    margin: 20px;
+    padding: 0 20px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+  .to-do-form input::placeholder{
+    color: rgba(255,255,255,0.5);
+  }
+  .to-do-form input:focus{
+    outline: none;
+  }
+  .to-do-form button{
+    height: 50px;
+    width: 80px;
+    border-radius: 25px;
+    border: 0;
+    background-color:#52C4B9;
+    cursor: pointer;
+  }
+  .to-do-form button:focus{
+    outline: none;
+  }
+  
+  .to-do-form h4{
+    text-align: center  ;
+  }
+  
+  /* List items */
+    
+  .list{
+    color: #fff;
+    width: 300px;
+    margin: 20px auto;
+    height: 50px;
+    background-color: rgba(27, 112, 137, 1);  
+    border-radius: 5px;
+  }
+  .list p{
+    padding: 10px;
+    position: relative;
+    transition: ease-in-out;
+  }
+  .list p input{
+    background-color: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 18px;
+  }
+  .list p input:focus{
+    outline: none;
+  }
+  .list p span{
+    position: absolute;
+    right: 10px;
+  }
+  .faicons{
+    margin: 0 5px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .itemsAnim-enter{
+    opacity: 0.01;
+  }
+  .itemsAnim-enter .itemsAnim-enter-active{
+    opacity: 1;
+    transition: opacity 300ms ease-in
+  }
+  .itemsAnim-leave{
+    opacity: 1;
+  }
+  .itemsAnim-leave .itemsAnim-leave-active{
+    opacity: 0.01;
+    transition: opacity 300ms ease-in
+  }
+  /* List items end */
+  
+  .row_board{
+    display:flex; 
+    flex-direction:row;
+  }

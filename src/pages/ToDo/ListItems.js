@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FlipMove from 'react-flip-move';
+import '../../css/Todo.css';
 
 function ListItems(props){
     const [modalShow, setModalShow] = React.useState(false);
