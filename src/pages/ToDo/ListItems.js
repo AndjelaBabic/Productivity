@@ -31,10 +31,6 @@ function ListItems(props){
         <FontAwesomeIcon className="faicons" onClick={() => {
             props.deleteItem(item.key)
         }} icon="trash" />
-                <FontAwesomeIcon className="faicons" onClick={() => {
-            setModalShow(true)
-        }} icon="edit" /> }
-         {/* { <NewCard show={modalShow} onHide={() => setModalShow(false)} />} */}
         </span>
      </p>
      
