@@ -12,6 +12,44 @@ const initialState = [
                 text: "some card 2"
             }
         ]
+    },
+    {
+        title: "This Episode",
+        id: 0, 
+        cards: [
+            {
+                id: 0, 
+                text: "Mad men"
+            },
+            {
+                id: 1, 
+                text: "Suits"
+            },
+            ,
+            {
+                id: 2, 
+                text: "Breaking bad"
+            }
+        ]
+    },
+    {
+        title: "This Episode",
+        id: 0, 
+        cards: [
+            {
+                id: 0, 
+                text: "Mad men"
+            },
+            {
+                id: 1, 
+                text: "Suits"
+            },
+            ,
+            {
+                id: 2, 
+                text: "Breaking bad"
+            }
+        ]
     }
 ]
 
