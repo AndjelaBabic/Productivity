@@ -1,56 +1,56 @@
 import {CONSTANTS} from "../actions"; 
 import { CardMedia } from "@material-ui/core";
 
-let listID = 2;
-let cardID = 4; 
+let listID = 3;
+let cardID = 10; 
 
 const initialState = [
     {
         title: "Last Episode",
-        id: 0, 
+        id: `list-${0}`, 
         cards: [
             {
-                id: 0, 
+                id: `card-${0}`,
                 text: "some card 1"
             },
             {
-                id: 1, 
+                id: `card-${1}`,
                 text: "some card 2"
             }
         ]
     },
     {
         title: "This Episode",
-        id: 1, 
+        id: `list-${1}`, 
         cards: [
             {
-                id: 0, 
+                id: `card-${4}`,
                 text: "Mad men"
             },
             {
-                id: 1, 
+                id: `card-${5}`,
                 text: "Suits"
             },
             {
-                id: 2, 
+                id: `card-${6}`,
                 text: "Breaking bad"
             }
         ]
     },
     {
         title: "This Episode",
-        id: 2, 
+        id: `list-${2}`, 
         cards: [
             {
-                id: 0, 
+                id: `card-${7}`,
                 text: "Mad men"
             },
             {
-                id: 1, 
+                id: `card-${8}`,
                 text: "Suits"
             },
             {
-                id: 2, 
+                id: `card-${9}`,
                 text: "Breaking bad"
             }
         ]
@@ -63,13 +63,13 @@ const listsReducer = (state = initialState, action) => {
             const newList = {
                 title: action.payload, 
                 cards: [], 
-                id: listID
+                id: `list-${listID}`,
             };
             listID += 1;
             return [...state, newList];
         case CONSTANTS.ADD_CARD:
             const newCard = {
-                id: cardID,
+                id: `card-${cardID}`,
                 text: action.payload.text
             };
             cardID += 1;

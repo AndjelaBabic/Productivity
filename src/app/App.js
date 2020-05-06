@@ -5,8 +5,13 @@ import Board from '../pages/ToDo/Board';
 import List from '../components/List';
 import { connect } from "react-redux";
 import ActionButton from '../components/ActionButton';
+import { DragDropContext } from "react-beautiful-dnd";  
 
 class App extends React.Component {
+
+  onDragEnd = () => {
+    // TODO: reordering logic
+  }
 
   render(){
     const { lists } = this.props; 
@@ -17,10 +22,12 @@ class App extends React.Component {
         <Route exact path="/" component={MainForm}></Route>
         <Route path="/todo" component={Board}></Route>
         <Route path="/list" render={() => (
+          <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listContainer}>
-          {lists.map(list => <List listID={list.id} key={list.id} title={list.title} cards={list.cards}></List>)}
-          <ActionButton list> </ActionButton>
+              {lists.map(list => <List listID={list.id} key={list.id} title={list.title} cards={list.cards}></List>)}
+              <ActionButton list> </ActionButton>
           </div>
+          </DragDropContext>
           )}></Route>
         </Switch>
         </div>
