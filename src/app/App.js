@@ -5,7 +5,7 @@ import Board from '../pages/ToDo/Board';
 import List from '../components/List';
 import { connect } from "react-redux";
 import ActionButton from '../components/ActionButton';
-import { DragDropContext } from "react-beautiful-dnd";  
+import { DragDropContext, Droppable } from "react-beautiful-dnd";  
 import { sort } from "../actions"; 
 import styled from "styled-components";
 
@@ -17,7 +17,7 @@ const ListContainer = styled.div`
 class App extends React.Component {
 
   onDragEnd = (result) => {
-    const { destination, source, draggableId} = result;
+    const { destination, source, draggableId, type} = result;
 
     // if we move card to somewhere outside of the droppable
     if(!destination){
@@ -28,7 +28,8 @@ class App extends React.Component {
       destination.droppableId, 
       source.index, 
       destination.index,
-      draggableId)); 
+      draggableId,
+      type)); 
   }
 
   render(){
@@ -41,10 +42,19 @@ class App extends React.Component {
         <Route path="/todo" component={Board}></Route>
         <Route path="/list" render={() => (
           <DragDropContext onDragEnd={this.onDragEnd}>
-          <ListContainer>
-              {lists.map(list => <List listID={list.id} key={list.id} title={list.title} cards={list.cards}></List>)}
+          <Droppable droppableId="all-lists" direction="horizontal" type="list">
+            { provided => (
+              <ListContainer 
+              {...provided.droppableProps}
+               ref={provided.innerRef}>
+              {lists.map((list, index) => 
+              <List listID={list.id} key={list.id} title={list.title} cards={list.cards} index={index}></List>)}
               <ActionButton list> </ActionButton>
-          </ListContainer>
+              </ListContainer>
+            )
+            }
+         
+          </Droppable>
           </DragDropContext>
           )}></Route>
         </Switch>
