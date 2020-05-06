@@ -88,6 +88,29 @@ const listsReducer = (state = initialState, action) => {
             });
             console.log(newState);
             return newState; 
+        case CONSTANTS.DRAG_HAPPEND: 
+        {
+            const {
+                droppableIdStart, 
+                droppableIdEnd, 
+                droppableIndexStart, 
+                droppableIndexEnd, 
+                draggableId
+            } = action.payload; 
+            const newState = [...state]; 
+            // in the same list (drag and drop)
+            if(droppableIdStart === droppableIdEnd){
+                console.log(action); 
+                console.log(state);
+                const list = state.find(list => droppableIdStart == list.id);
+                // delete 1 on the given index, returns deleted card 
+                const card = list.cards.splice(droppableIndexStart, 1); 
+                // add card on the given index, do not delete anything
+                list.cards.splice(droppableIndexEnd, 0, ...card);
+                console.log(state);
+            }
+            return newState;
+        } 
         default: 
         return state; 
     }
