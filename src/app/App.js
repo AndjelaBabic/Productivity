@@ -18,7 +18,7 @@ class App extends React.Component {
         <Route path="/todo" component={Board}></Route>
         <Route path="/list" render={() => (
           <div style={styles.listContainer}>
-          {lists.map(list => <List key={list.id} title={list.title} cards={list.cards}></List>)}
+          {lists.map(list => <List listID={list.id} key={list.id} title={list.title} cards={list.cards}></List>)}
           <ActionButton list> </ActionButton>
           </div>
           )}></Route>

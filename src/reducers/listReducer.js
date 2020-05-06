@@ -1,3 +1,9 @@
+import {CONSTANTS} from "../actions"; 
+import { CardMedia } from "@material-ui/core";
+
+let listID = 2;
+let cardID = 4; 
+
 const initialState = [
     {
         title: "Last Episode",
@@ -25,7 +31,6 @@ const initialState = [
                 id: 1, 
                 text: "Suits"
             },
-            ,
             {
                 id: 2, 
                 text: "Breaking bad"
@@ -44,7 +49,6 @@ const initialState = [
                 id: 1, 
                 text: "Suits"
             },
-            ,
             {
                 id: 2, 
                 text: "Breaking bad"
@@ -55,6 +59,35 @@ const initialState = [
 
 const listsReducer = (state = initialState, action) => {
     switch (action.type){
+        case CONSTANTS.ADD_LIST:
+            const newList = {
+                title: action.payload, 
+                cards: [], 
+                id: listID
+            };
+            listID += 1;
+            return [...state, newList];
+        case CONSTANTS.ADD_CARD:
+            const newCard = {
+                id: cardID,
+                text: action.payload.text
+            };
+            cardID += 1;
+
+            const newState = state.map(list => {
+                if(list.id == action.payload.listID){
+                    return {
+                        id: list.id,
+                        title: list.title, 
+                        cards: [...list.cards, newCard]
+                    };
+                    
+                } else{
+                    return list; 
+                }
+            });
+            console.log(newState);
+            return newState; 
         default: 
         return state; 
     }
