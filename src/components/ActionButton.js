@@ -5,6 +5,7 @@ import { Card, Button, Icon } from "@material-ui/core";
 import TextArea from 'react-textarea-autosize'; 
 import { connect } from "react-redux"; 
 import { addList, addCard } from "../actions"; 
+import styled from "styled-components";
 
 class ActionButton extends React.Component {
     state = {
@@ -59,6 +60,13 @@ class ActionButton extends React.Component {
         const { list } = this.props; 
         const placeholder = list ? "Enter list title..." : "Enter title for this card...";
         const buttonTittle = list ? "Add List" : "Add Card"; 
+  
+      const ButtonContainer = styled.div`
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
+      `;
 
         return <div>
             <Card style={{
@@ -79,7 +87,7 @@ class ActionButton extends React.Component {
                     border: "none"
                 }}/>
             </Card>
-            <div style={styles.formButtonGroup}>
+            <ButtonContainer>
                 <Button 
                 // onMouseDown instead of onClick because onMouseDown fires before onBlur for the TextArea
                 onMouseDown={list ? this.handleAddList : this.handleAddCard}
@@ -88,9 +96,10 @@ class ActionButton extends React.Component {
                     {buttonTittle}
                 </Button>
                 <CloseIcon
-                style={{ marginLeft: 8, cursor: "pointer"}}>
+                style={{ marginLeft: 8, cursor: "pointer"}}
+                onClick={this.closeForm}>
                 </CloseIcon>
-            </div>
+            </ButtonContainer>
         </div>;
     }
 
@@ -102,40 +111,33 @@ class ActionButton extends React.Component {
         const buttonTextColor = list ? "white" : "inherit"; 
         const buttonTextBackground = list ? "rgba(0,0,0,.15)" : "inherit"; 
 
+        const OpenFormButton = styled.div`
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 3px;
+        height: 36px;
+        margin-left: 8px;
+        width: 300px;
+        padding-left: 10px;
+        padding-right: 10px;
+        opacity: ${buttonTextOpacity};
+        color: ${buttonTextColor};
+        background-color: ${buttonTextBackground};
+        `;
+
         return (
-            <div
-            onClick={this.openForm} 
-            style={{
-                ...styles.openForButtonGroup, 
-                opacity: buttonTextOpacity,
-                color: buttonTextColor, 
-                backgroundColor: buttonTextBackground}}>   
+            <OpenFormButton
+            onClick={this.openForm} >   
                 <AddIcon></AddIcon>
-                <p>{buttonText}</p>
-            </div>
+                <p style={{ flexShrink: 0 }}>{buttonText}</p>
+            </OpenFormButton>
         )
     }
 
 
     render(){
         return this.state.formOpen ? this.renderForm() : this.renderAddButton();
-    }
-}
-
-const styles = {
-    openForButtonGroup: {
-        display: "flex", 
-        alignItems: "center", 
-        cursor: "pointer", 
-        borderRadius: 3, 
-        height: 36, 
-        width: 272, 
-        paddingLeft: 10
-    }, 
-    formButtonGroup: {
-        marginTop: 8, 
-        display: "flex", 
-        alignItems: "center"
     }
 }
 

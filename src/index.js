@@ -5,10 +5,18 @@ import store from "./store";
 import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    background-color: grey;
+  }
+`;
 
 
 ReactDOM.render(
 <Provider store={store}>
+      <GlobalStyle/>
       <App />
 </Provider>,
  document.getElementById('root')

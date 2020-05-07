@@ -49,6 +49,7 @@ class App extends React.Component {
                ref={provided.innerRef}>
               {lists.map((list, index) => 
               <List listID={list.id} key={list.id} title={list.title} cards={list.cards} index={index}></List>)}
+              {provided.placeholder}
               <ActionButton list> </ActionButton>
               </ListContainer>
             )
