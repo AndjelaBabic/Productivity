@@ -5,22 +5,46 @@ import Typography from '@material-ui/core/Typography';
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Form from "./Form";
+import EditIcon from '@material-ui/icons/Edit';
+import { editCard } from "../actions";
+import { connect } from "react-redux"; 
 
 const CardContainer = styled.div`
-  margin-bottom: 8px;
+  margin: 0 0 8px 0;
+  position: relative;
 `;
 
-const CardComponent = ({text, id, index}) => {
+const EditButton = styled(EditIcon)`
+  position: absolute;
+  display: none;
+  right: 5px;
+  top: 5px;
+  opacity: 0.5;
+  ${CardContainer}:hover & {
+    display: block;
+    cursor: pointer;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+
+const CardComponent = ({text, id, listID, index, dispatch}) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [cardText, setCardText] = useState(text);
 
   const closeForm = e => {
     setIsEditing(false);
+    setCardText(text); 
   };
 
-  const saveCard = () => {
+  const saveCard = e => {
     // run redux action
+    e.preventDefault();
+    dispatch(editCard(id, listID, cardText));
+    setIsEditing(false); 
   };
 
   const renderEditForm = () => {
@@ -35,9 +59,8 @@ const CardComponent = ({text, id, index}) => {
   
     const renderCard = () => {
       return  (
-    <Draggable draggableId={id} index={index}>
+    <Draggable draggableId={String(id)} index={index}>
     {
-      
       provided => (
         <CardContainer
         ref={provided.innerRef} 
@@ -45,9 +68,12 @@ const CardComponent = ({text, id, index}) => {
         {...provided.dragHandleProps}
         onDoubleClick={() => setIsEditing(true)}>
           <Card>
+            <EditButton
+                onMouseDown={() => setIsEditing(true)}
+                fontSize="small">edit</EditButton>
             <CardContent>
               <Typography gutterBottom>
-              {cardText}
+              {text}
               </Typography>
             </CardContent>
           </Card>
@@ -61,4 +87,4 @@ const CardComponent = ({text, id, index}) => {
     return isEditing ? renderEditForm() : renderCard(); 
 }
 
-export default CardComponent; 
+export default (connect)() (CardComponent); 

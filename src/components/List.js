@@ -30,7 +30,7 @@ const List = ({title, cards, listID, index}) => {
                     <h4> {title} </h4>
                     
                     { cards.map((card, index) => (
-                    <CardComponent key={card.id} text={card.text} id={card.id} index={index}/> ))
+                    <CardComponent key={card.id} text={card.text} id={card.id} index={index} listID={listID}/> ))
                     }
                     <ActionButton listID={listID}/>
                     {provided.placeholder}

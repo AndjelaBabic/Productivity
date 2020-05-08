@@ -47,20 +47,22 @@ const Form = props => {
     margin-left: 8px;
   `;
 
+
   return (
     <Container>
       <StyledCard>
         <StyledTextArea
           placeholder={placeholder}
-          autoFocus
           value={text}
           onChange={e => setText(e.target.value)}
           onBlur={closeForm}
-        />
+          autoFocus/>
       </StyledCard>
       <ButtonContainer>
-        <StyledButton variant="contained" children={buttonTitle} />
-
+        <StyledButton 
+        variant="contained"
+        onMouseDown={actionButtonClicked}
+        children={buttonTitle} />
         <CloseIcon style={{ marginLeft: 8, cursor: "pointer"}} onMouseDown={closeForm}>close</CloseIcon>
       </ButtonContainer>
     </Container>
