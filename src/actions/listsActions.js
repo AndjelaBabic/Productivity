@@ -27,3 +27,16 @@ export const sort = (
         }
     }; 
 }
+
+export const editListTitle = (
+    listID, 
+    listTitle
+) => {
+    return {
+        type: CONSTANTS.EDIT_LIST_TITLE, 
+        payload: {
+            listID, 
+            listTitle
+        }
+    }; 
+}

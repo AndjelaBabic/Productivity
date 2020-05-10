@@ -3,36 +3,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
 import Form from "./Form";
-import EditIcon from '@material-ui/icons/Edit';
+
 import { editCard, deleteCard } from "../actions";
 import { connect } from "react-redux"; 
 import DeleteButton from "./styled/DeleteButton.js";
-
-const CardContainer = styled.div`
-  margin: 0 0 8px 0;
-  position: relative;
-  max-width: 100%;
-  word-wrap: break-word;
-
-`;
-
-const EditButton = styled(EditIcon)`
-  position: absolute;
-  display: none;
-  right: 5px;
-  top: 5px;
-  opacity: 0.5;
-  ${CardContainer}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
+import CardContainer from "./styled/CardContainer.js";
+import EditButton from "./styled/EditButton.js";
 
 const CardComponent = React.memo(({text, id, listID, index, dispatch}) => {
 

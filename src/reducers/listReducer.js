@@ -152,6 +152,18 @@ const listsReducer = (state = initialState, action) => {
               }
             });
         }
+        case CONSTANTS.EDIT_LIST_TITLE: {
+            console.log(action);
+            const { listID, listTitle } = action.payload;
+            return state.map(list => {
+              if (list.id === listID) {
+                list.title = listTitle;
+                return list;
+              } else {
+                return list;
+              }
+            });
+          }
         
         default: 
         return state; 
