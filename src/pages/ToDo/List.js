@@ -2,6 +2,7 @@ import React from 'react';
 import ListItems from './ListItems';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import '../../css/Todo.css';
 
 library.add(faTrash)
 

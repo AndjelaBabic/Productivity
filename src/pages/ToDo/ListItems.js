@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FlipMove from 'react-flip-move';
+import '../../css/Todo.css';
 
 function ListItems(props){
     const [modalShow, setModalShow] = React.useState(false);
@@ -31,10 +32,6 @@ function ListItems(props){
         <FontAwesomeIcon className="faicons" onClick={() => {
             props.deleteItem(item.key)
         }} icon="trash" />
-                <FontAwesomeIcon className="faicons" onClick={() => {
-            setModalShow(true)
-        }} icon="edit" /> }
-         {/* { <NewCard show={modalShow} onHide={() => setModalShow(false)} />} */}
         </span>
      </p>
      
