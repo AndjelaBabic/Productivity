@@ -27,3 +27,26 @@ export const sort = (
         }
     }; 
 }
+
+export const editListTitle = (
+    listID, 
+    listTitle
+) => {
+    return {
+        type: CONSTANTS.EDIT_LIST_TITLE, 
+        payload: {
+            listID, 
+            listTitle
+        }
+    }; 
+}
+
+export const deleteList = listID => {
+    return {
+      type: CONSTANTS.DELETE_LIST,
+      payload: {
+        listID
+      }
+    };
+  };
+  

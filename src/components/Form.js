@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import CloseIcon from '@material-ui/icons/Close';
 import ButtonContainer from "./styled/ButtonContainer.js"; 
+import Container from "./styled/Container.js"
 
 const Form = React.memo(({ list, text = "", onChange, onClick, closeForm, buttonTitle = "Save" }) => {
 
@@ -15,11 +16,9 @@ const Form = React.memo(({ list, text = "", onChange, onClick, closeForm, button
 
 
   return (
-    <div>
+    <Container>
             <Card style={{
-                overflow: "visible", 
                 minHeight: 80, 
-                minWidth: 272,
                 padding: "6px 8px 2px"
             }}>
                 <Textarea 
@@ -48,7 +47,7 @@ const Form = React.memo(({ list, text = "", onChange, onClick, closeForm, button
                 onClick={closeForm}>
                 </CloseIcon>
             </ButtonContainer>
-        </div>
+        </Container>
   );
 });
 

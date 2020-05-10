@@ -13,3 +13,10 @@ export const editCard = (cardID, listID, newText) => {
         payload: {cardID, listID, newText}
     }; 
 };
+
+export const deleteCard = (cardID, listID) => {
+    return {
+        type: CONSTANTS.DELETE_CARD, 
+        payload: {cardID, listID}
+    }; 
+};
