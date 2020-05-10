@@ -12,7 +12,7 @@ const ListContainer = styled.div`
   margin-right: 8px;
 `;
 
-const List = ({title, cards, listID, index}) => {
+const List = React.memo(({title, cards, listID, index}) => {
     return (
         <Draggable draggableId={String(listID)} index={index}>
         { provided => (
@@ -45,6 +45,6 @@ const List = ({title, cards, listID, index}) => {
         </Draggable>
     )
 }
-
+);
 
 export default List; 

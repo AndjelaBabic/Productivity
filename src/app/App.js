@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainForm from '../pages/Login/MainForm';
 import Board from '../pages/ToDo/Board';
@@ -14,7 +14,7 @@ const ListContainer = styled.div`
   flex-direction: row;
 `;
 
-class App extends React.Component {
+class App extends PureComponent {
 
   onDragEnd = (result) => {
     const { destination, source, draggableId, type} = result;

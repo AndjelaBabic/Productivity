@@ -12,6 +12,9 @@ import { connect } from "react-redux";
 const CardContainer = styled.div`
   margin: 0 0 8px 0;
   position: relative;
+  max-width: 100%;
+  word-wrap: break-word;
+
 `;
 
 const EditButton = styled(EditIcon)`
@@ -30,7 +33,7 @@ const EditButton = styled(EditIcon)`
 `;
 
 
-const CardComponent = ({text, id, listID, index, dispatch}) => {
+const CardComponent = React.memo(({text, id, listID, index, dispatch}) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [cardText, setCardText] = useState(text);
@@ -47,13 +50,17 @@ const CardComponent = ({text, id, listID, index, dispatch}) => {
     setIsEditing(false); 
   };
 
+  const handleChange = e => {
+    setCardText(e.target.value);
+  };
+
   const renderEditForm = () => {
     return (
       <Form
       text={cardText}
-      setText={setCardText}
       closeForm={closeForm}
-      actionButtonClicked={saveCard}/>
+      onClick={saveCard}
+      onChange={handleChange}/>
     );
   };
   
@@ -85,6 +92,6 @@ const CardComponent = ({text, id, listID, index, dispatch}) => {
   }
 
     return isEditing ? renderEditForm() : renderCard(); 
-}
+});
 
 export default (connect)() (CardComponent); 
