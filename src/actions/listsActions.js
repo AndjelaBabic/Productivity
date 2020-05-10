@@ -40,3 +40,13 @@ export const editListTitle = (
         }
     }; 
 }
+
+export const deleteList = listID => {
+    return {
+      type: CONSTANTS.DELETE_LIST,
+      payload: {
+        listID
+      }
+    };
+  };
+  

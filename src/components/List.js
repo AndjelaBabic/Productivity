@@ -4,7 +4,8 @@ import CardComponent from "./CardComponent";
 import { Droppable, Draggable } from "react-beautiful-dnd"; 
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { editListTitle } from "../actions";
+import { editListTitle, deleteList } from "../actions";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const ListContainer = styled.div`
   background-color: #dfe3e6;
@@ -23,6 +24,25 @@ margin-bottom: 3px;
 padding: 5px;
 `;
 
+const TitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const DeleteButton = styled(DeleteIcon)`
+  cursor: pointer;
+`;
+
+const ListTitle = styled.h4`
+  transition: background 0.3s ease-in;
+  ${TitleContainer}:hover & {
+    background: #ccc;
+  }
+`;
+
 const List = React.memo(({title, cards, listID, index, dispatch}) => {
 
     const [isEditing, setIsEditing] = useState(false);
@@ -30,14 +50,15 @@ const List = React.memo(({title, cards, listID, index, dispatch}) => {
 
     const renderEditForm = e => {
         return (
+            <form onSubmit={handleFinishEditing}>
             <StyledInput
               type="text"
               value={listTitle}
               onChange={handleChange}
               autoFocus
-              onKeyDown={handleEnter}
               onBlur={handleFinishEditing}
             />
+            </form>
           );
     };
       const handleChange = e => {
@@ -45,17 +66,14 @@ const List = React.memo(({title, cards, listID, index, dispatch}) => {
         setListTitle(e.target.value);
       };
     
-      const handleEnter = e => {
-        if (e.key === 'Enter') {
-            handleFinishEditing(e);
-        }
-      };
-    
       const handleFinishEditing = e => {
         setIsEditing(false);
         dispatch(editListTitle(listID, listTitle));
       };
 
+      const handleDeleteList = () => {
+        dispatch(deleteList(listID));
+      };
     return (
         <Draggable draggableId={String(listID)} index={index}>
         { provided => (
@@ -70,7 +88,12 @@ const List = React.memo(({title, cards, listID, index, dispatch}) => {
                     ref={provided.innerRef} > 
                     { isEditing ?
                     renderEditForm() :  
-                    (<h4 onClick={() => setIsEditing(true)}>{listTitle}</h4>)}
+                    ( <TitleContainer onClick={() => setIsEditing(true)}>
+                    <ListTitle>{listTitle}</ListTitle>
+                    <DeleteButton onClick={handleDeleteList}>
+                      delete
+                    </DeleteButton>
+                  </TitleContainer>)}
                     
                     { cards.map((card, index) => (
                     <CardComponent key={card.id} text={card.text} id={card.id} index={index} listID={listID}/> ))
