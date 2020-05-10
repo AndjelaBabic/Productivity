@@ -125,7 +125,6 @@ const listsReducer = (state = initialState, action) => {
             return newState;
         } 
         case CONSTANTS.EDIT_CARD: {
-            console.log(action);
             const { cardID, listID, newText } = action.payload;
             return state.map(list => {
               if (list.id === listID) {
@@ -141,7 +140,19 @@ const listsReducer = (state = initialState, action) => {
               return list;
             });
           }
-      
+        case CONSTANTS.DELETE_CARD: {
+            console.log(action);
+            const { cardID, listID } = action.payload;
+            return state.map(list => {
+              if (list.id === listID) {
+                const newCards = list.cards.filter(card => card.id !== cardID);
+                return { ...list, cards: newCards };
+              } else {
+                return list;
+              }
+            });
+        }
+        
         default: 
         return state; 
     }

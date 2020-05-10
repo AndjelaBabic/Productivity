@@ -6,8 +6,9 @@ import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Form from "./Form";
 import EditIcon from '@material-ui/icons/Edit';
-import { editCard } from "../actions";
+import { editCard, deleteCard } from "../actions";
 import { connect } from "react-redux"; 
+import DeleteButton from "./styled/DeleteButton.js";
 
 const CardContainer = styled.div`
   margin: 0 0 8px 0;
@@ -50,6 +51,11 @@ const CardComponent = React.memo(({text, id, listID, index, dispatch}) => {
     setIsEditing(false); 
   };
 
+  const handleDeleteCard = e => {
+    // run redux action
+    dispatch(deleteCard(id, listID));
+  };
+
   const handleChange = e => {
     setCardText(e.target.value);
   };
@@ -60,7 +66,8 @@ const CardComponent = React.memo(({text, id, listID, index, dispatch}) => {
       text={cardText}
       closeForm={closeForm}
       onClick={saveCard}
-      onChange={handleChange}/>
+      onChange={handleChange}
+      deleteCard={deleteCard}/>
     );
   };
   
@@ -78,6 +85,8 @@ const CardComponent = React.memo(({text, id, listID, index, dispatch}) => {
             <EditButton
                 onMouseDown={() => setIsEditing(true)}
                 fontSize="small">edit</EditButton>
+            <DeleteButton onMouseDown={handleDeleteCard}
+                fontSize="small">delete</DeleteButton>
             <CardContent>
               <Typography gutterBottom>
               {text}
