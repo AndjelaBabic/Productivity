@@ -57,6 +57,7 @@ const initialState = [
 ]
 
 const listsReducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type){
         case CONSTANTS.ADD_LIST:
             const newList = {
@@ -85,7 +86,6 @@ const listsReducer = (state = initialState, action) => {
                     return list; 
                 }
             });
-            console.log(newState);
             return newState; 
         case CONSTANTS.DRAG_HAPPEND: 
         {
@@ -141,7 +141,6 @@ const listsReducer = (state = initialState, action) => {
             });
           }
         case CONSTANTS.DELETE_CARD: {
-            console.log(action);
             const { cardID, listID } = action.payload;
             return state.map(list => {
               if (list.id === listID) {
@@ -153,7 +152,6 @@ const listsReducer = (state = initialState, action) => {
             });
         }
         case CONSTANTS.EDIT_LIST_TITLE: {
-            console.log(action);
             const { listID, listTitle } = action.payload;
             return state.map(list => {
               if (list.id === listID) {
