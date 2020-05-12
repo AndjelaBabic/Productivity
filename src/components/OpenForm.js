@@ -1,6 +1,5 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
-import styled from "styled-components";
 import OpenFormButton from "./styled/OpenFormButton.js"; 
 
 const OpenForm = ({ list, children, openForm }) => {

@@ -1,5 +1,4 @@
 import React from "react"; 
-import styled from "styled-components";
 import Textarea from "react-textarea-autosize";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
@@ -12,9 +11,7 @@ const Form = React.memo(({ list, text = "", onChange, onClick, closeForm, button
   const placeholder = list
     ? "Enter list title..."
     : "Enter a title for this card...";
-
-
-
+    
   return (
     <Container>
             <Card style={{

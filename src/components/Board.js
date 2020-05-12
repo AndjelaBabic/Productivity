@@ -4,9 +4,15 @@ import ActionButton from "./ActionButton";
 import ListContainer from "./styled/ListContainer"; 
 import List from "./List";
 import { connect } from "react-redux"; 
-import { sort } from "../actions";
+import { sort, setActiveBoard } from "../actions";
 
 class Board extends PureComponent {
+
+    componentDidMount() {
+        // set active trello board here
+        const { boardID } = this.props.match.params;
+        this.props.dispatch(setActiveBoard(boardID));
+      }
 
     onDragEnd = (result) => {
         const { destination, source, draggableId, type} = result;
