@@ -4,7 +4,7 @@ import { addBoard } from "../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Home = ({ boards, dispatch }) => {
+const Home = ({ boards, boardOrder, dispatch }) => {
     const [boardTitle, setBoardTitle] = useState(""); 
 
     const handleSubmit = e => {
@@ -31,26 +31,28 @@ const Home = ({ boards, dispatch }) => {
     };
 
     const renderBoards = () => {
-      console.log(boards); 
-      return boards.map(board => {
+      return boardOrder.map(boardID => {
+        const board = boards[boardID];
+  
         return (
-          // <Link key={board.id} to={`/${board.id}`}>
-            console.log(board)
-        //  </Link>
+          <Link key={boardID} to={`home/${board.id}` }>
+            {board.title}
+          </Link>
         );
       });
-    };
+    };  
 
     return (
     <HomeContainer>
-        {renderCreateBoard()}
         {renderBoards()}
+        {renderCreateBoard()}
     </HomeContainer>
     );
 }; 
 
 const mapStateToProps = state => ({
-  boards: state.boards
+  boards: state.boards,
+  boardOrder: state.boardOrder
 });
 
 export default connect(mapStateToProps)(Home);

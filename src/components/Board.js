@@ -21,6 +21,7 @@ class Board extends PureComponent {
         if(!destination){
             return; 
         }
+        console.log(result);
         this.props.dispatch(sort(
           source.droppableId,
           destination.droppableId, 
@@ -31,8 +32,16 @@ class Board extends PureComponent {
       }
     
     render(){
-        const { lists } = this.props; 
+        const { lists, match, boards, cards } = this.props; 
+        const { boardID } = match.params;
+        const board = boards[boardID];
+        console.log(cards); 
+        console.log(lists); 
+        if (!board) {
+          return <p>Board not found</p>;
+        }
 
+        const listOrder = board.lists;
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <h2>My Board</h2>
@@ -41,8 +50,19 @@ class Board extends PureComponent {
                 <ListContainer 
                 {...provided.droppableProps}
                  ref={provided.innerRef}>
-                {lists.map((list, index) => 
-                <List listID={list.id} key={list.id} title={list.title} cards={list.cards} index={index}></List>)}
+                {listOrder.map((listID, index) => {
+                const list = lists[listID];
+                  if(list){
+                    const listCards = list.cards.map(cardID => cards[cardID]);  
+                    return (
+                      <List listID={list.id}
+                            key={list.id}
+                            title={list.title} 
+                            cards={listCards} 
+                            index={index}/>
+                    );
+                  }
+                })}
                 {provided.placeholder}
                 <ActionButton list> </ActionButton>
                 </ListContainer>
@@ -55,7 +75,9 @@ class Board extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    lists: state.lists 
+    lists: state.lists,
+    boards: state.boards, 
+    cards: state.cards
 })
 
 export default  connect(mapStateToProps)(Board); 

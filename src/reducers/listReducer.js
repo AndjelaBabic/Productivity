@@ -1,94 +1,37 @@
 import {CONSTANTS} from "../actions"; 
 
-let listID = 3;
-let cardID = 10; 
+let listID = 0;
 
-const initialState = [
-    {
+const initialState = {
+    "list-0": {
         title: "Last Episode",
-        id: `list-${0}`, 
-        cards: [
-            {
-                id: `card-${0}`,
-                text: "some card 1"
-            },
-            {
-                id: `card-${1}`,
-                text: "some card 2"
-            }
-        ]
-    },
-    {
-        title: "This Episode",
-        id: `list-${1}`, 
-        cards: [
-            {
-                id: `card-${4}`,
-                text: "Mad men"
-            },
-            {
-                id: `card-${5}`,
-                text: "Suits"
-            },
-            {
-                id: `card-${6}`,
-                text: "Breaking bad"
-            }
-        ]
-    },
-    {
-        title: "This Episode",
-        id: `list-${2}`, 
-        cards: [
-            {
-                id: `card-${7}`,
-                text: "Mad men"
-            },
-            {
-                id: `card-${8}`,
-                text: "Suits"
-            },
-            {
-                id: `card-${9}`,
-                text: "Breaking bad"
-            }
-        ]
-    }
-]
+        id: `list-0`,
+        cards: ["card-0"], 
+        board: "board-0"
+   }
+};
 
 const listsReducer = (state = initialState, action) => {
     console.log(action);
     switch (action.type){
-        case CONSTANTS.ADD_LIST:
+        case CONSTANTS.ADD_LIST:{
+            listID += 1;
+            const { title, boardID } = action.payload;
             const newList = {
-                title: action.payload, 
+                title: title, 
                 cards: [], 
                 id: `list-${listID}`,
+                board: boardID
             };
-            listID += 1;
-            return [...state, newList];
-        case CONSTANTS.ADD_CARD:
-            const newCard = {
-                id: `card-${cardID}`,
-                text: action.payload.text
-            };
-            cardID += 1;
-
-            const newState = state.map(list => {
-                if(list.id === action.payload.listID){
-                    return {
-                        id: list.id,
-                        title: list.title, 
-                        cards: [...list.cards, newCard]
-                    };
-                    
-                } else{
-                    return list; 
-                }
-            });
-            return newState; 
-        case CONSTANTS.DRAG_HAPPEND: 
-        {
+            return {...state, [newList.id]: newList};
+        }
+        case CONSTANTS.ADD_CARD:{
+            const { listID, id } = action.payload;
+            const list = state[listID];
+            list.cards.push(`card-${id}`);
+            return { ...state, [listID]: list };
+        }
+        case CONSTANTS.DRAG_HAPPEND: {
             const {
                 droppableIdStart, 
                 droppableIdEnd, 
@@ -96,76 +39,56 @@ const listsReducer = (state = initialState, action) => {
                 droppableIndexEnd, 
                 type
             } = action.payload; 
-            const newState = [...state]; 
 
             // dragging lists around 
             if(type === "list"){
-                const list = newState.splice(droppableIndexStart, 1);
-                newState.splice(droppableIndexEnd, 0, ...list);
-                return newState; 
+                return state; 
             }
             // in the same list (drag and drop)
             if(droppableIdStart === droppableIdEnd){
-                const list = state.find(list => droppableIdStart === list.id);
+                const list = state[droppableIdStart];
                 // delete 1 on the given index, returns deleted card 
                 const card = list.cards.splice(droppableIndexStart, 1); 
                 // add card on the given index, do not delete anything
                 list.cards.splice(droppableIndexEnd, 0, ...card);
+                return { ...state, [droppableIdStart]: list };
             }
+            // card moved to different list
             if(droppableIdStart !== droppableIdEnd){
                 // find the list where the drag happend
-                const listStart = state.find(list => droppableIdStart === list.id);
+                const listStart = state[droppableIdStart];
                 // pull out the card from this list
                 const card = listStart.cards.splice(droppableIndexStart, 1); 
                 // find the list where drag ended
-                const listEnd = state.find(list => droppableIdEnd === list.id);
+                const listEnd = state[droppableIdEnd];
                 // add card on the end list
                 listEnd.cards.splice(droppableIndexEnd, 0, ...card);
+                return {
+                    ...state,
+                    [droppableIdStart]: listStart,
+                    [droppableIdEnd]: listEnd
+                  };
             }
-            return newState;
+            return state; 
         } 
-        case CONSTANTS.EDIT_CARD: {
-            const { cardID, listID, newText } = action.payload;
-            return state.map(list => {
-              if (list.id === listID) {
-                const newCards = list.cards.map(card => {
-                  if (card.id === cardID) {
-                    card.text = newText;
-                    return card;
-                  }
-                  return card;
-                });
-                return { ...list, cards: newCards };
-              }
-              return list;
-            });
-          }
         case CONSTANTS.DELETE_CARD: {
             const { cardID, listID } = action.payload;
-            return state.map(list => {
-              if (list.id === listID) {
-                const newCards = list.cards.filter(card => card.id !== cardID);
-                return { ...list, cards: newCards };
-              } else {
-                return list;
-              }
-            });
+            const list = state[listID]; 
+            const newCards = list.cards.filter(id => id !== cardID);
+            return { ...state, [listID]: { ...list, cards: newCards } };
         }
         case CONSTANTS.EDIT_LIST_TITLE: {
             const { listID, listTitle } = action.payload;
-            return state.map(list => {
-              if (list.id === listID) {
-                list.title = listTitle;
-                return list;
-              } else {
-                return list;
-              }
-            });
+            const list = state[listID];
+            list.title = listTitle;
+            return { ...state, [listID]: list };
           }
         
           case CONSTANTS.DELETE_LIST: {
             const { listID } = action.payload;
-            return state.filter(list => list.id !== listID);
+            const newState = state;
+            delete newState[listID];
+            return newState;      
           }
         
         default: 
