@@ -6,6 +6,7 @@ import '../../css/Login.css';
 
 function MainForm() {
   return (
+    <div className="App">
     <Router>
       <div className="App__Aside"> </div>
         <div className="App__Form">
@@ -23,6 +24,7 @@ function MainForm() {
           </Route>
         </div>
     </Router>
+    </div>
   );
 }
 

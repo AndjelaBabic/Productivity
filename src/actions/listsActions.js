@@ -1,13 +1,13 @@
 import { CONSTANTS} from "../actions"; 
+import {uuid} from "uuidv4";
 
 export const addList = (title) => {
+    const id = uuid();
     return (dispatch, getState) => {
         const boardID = getState().activeBoard;
-        console.log('Active board'); 
-        console.log(boardID);
         dispatch({
           type: CONSTANTS.ADD_LIST,
-          payload: { title, boardID }
+          payload: { title, boardID, id }
         }); 
     }   
 };

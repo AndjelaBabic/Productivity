@@ -1,7 +1,6 @@
 import {CONSTANTS} from "../actions";
 
 let listID = 0;
-let boardID = 0;
 
 const initialState = {
     "board-0": {
@@ -15,23 +14,20 @@ const boardsReducer = (state = initialState, action) => {
     console.log(action);
     switch(action.type){
         case CONSTANTS.ADD_BOARD: {
-            boardID += 1;
-            const title = action.payload;
-            const newID = `board-${boardID}`;
+            const {title, id} = action.payload;
+            const newID = `board-${id}`;
             const newBoard = {
               id: newID,
               title,
               lists: []
             };
-            boardID += 1;
             return { ...state, [newID]: newBoard };
         }
 
         case CONSTANTS.ADD_LIST: {
-            const { boardID } = action.payload;
+            const { boardID, id } = action.payload;
             const board = state[boardID];
-            listID += 1;
-            const newListID = `list-${listID}`;
+            const newListID = `list-${id}`;
             const newLists = [...board.lists, newListID];
             board.lists = newLists;
             return { ...state, [boardID]: board };

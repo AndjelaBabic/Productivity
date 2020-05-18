@@ -5,6 +5,7 @@ import ListContainer from "./styled/ListContainer";
 import List from "./List";
 import { connect } from "react-redux"; 
 import { sort, setActiveBoard } from "../actions";
+import { Link } from "react-router-dom";
 
 class Board extends PureComponent {
 
@@ -21,7 +22,6 @@ class Board extends PureComponent {
         if(!destination){
             return; 
         }
-        console.log(result);
         this.props.dispatch(sort(
           source.droppableId,
           destination.droppableId, 
@@ -35,8 +35,6 @@ class Board extends PureComponent {
         const { lists, match, boards, cards } = this.props; 
         const { boardID } = match.params;
         const board = boards[boardID];
-        console.log(cards); 
-        console.log(lists); 
         if (!board) {
           return <p>Board not found</p>;
         }
@@ -44,6 +42,7 @@ class Board extends PureComponent {
         const listOrder = board.lists;
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
+                <Link to="/home">Go Back</Link>
                 <h2>My Board</h2>
             <Droppable droppableId="all-lists" direction="horizontal" type="list">
               { provided => (

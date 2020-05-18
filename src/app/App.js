@@ -9,15 +9,15 @@ class App extends PureComponent {
 
   render(){
     return (
+      <div style={{color: "white"}}>
       <Router>
-        <div className="App">
         <Switch>
         <Route exact path="/" component={MainForm}></Route>
         <Route path="/home/:boardID" component={Board}></Route>
         <Route path="/home" component={Home}></Route>
         </Switch>
-        </div>
       </Router>
+      </div>
     );
   }
 }

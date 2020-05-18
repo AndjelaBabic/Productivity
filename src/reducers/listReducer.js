@@ -1,7 +1,5 @@
 import {CONSTANTS} from "../actions"; 
 
-let listID = 0;
-
 const initialState = {
     "list-0": {
         title: "Last Episode",
@@ -15,12 +13,11 @@ const listsReducer = (state = initialState, action) => {
     console.log(action);
     switch (action.type){
         case CONSTANTS.ADD_LIST:{
-            listID += 1;
-            const { title, boardID } = action.payload;
+            const { title, boardID, id } = action.payload;
             const newList = {
                 title: title, 
                 cards: [], 
-                id: `list-${listID}`,
+                id: `list-${id}`,
                 board: boardID
             };
             return {...state, [newList.id]: newList};
