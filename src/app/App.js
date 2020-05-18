@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MainForm from '../pages/Login/MainForm'; 
+import MainForm from '../components/MainForm'; 
 import Board from '../components/Board';
 import Home from '../components/Home';
 
