@@ -4,7 +4,7 @@ import OpenForm from "./OpenForm";
 import Form from "./Form";
 import { connect } from "react-redux"; 
 
-export class ActionButton extends React.Component {
+class ActionButton extends React.Component {
     state = {
         formOpen: false,
         text: ""

@@ -11,6 +11,7 @@ const ListContainer = styled.div`
   background-color: #dfe3e6;
   border-radius: 3px;
   width: 300px;
+  height: 100%;
   padding: 8px;
   margin-right: 8px;
 `;
@@ -81,19 +82,20 @@ const List = React.memo(({title, cards, listID, index, dispatch}) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}>
+                { isEditing ?
+                  renderEditForm() :  
+                  ( <TitleContainer onClick={() => setIsEditing(true)}>
+                  <ListTitle>{listTitle}</ListTitle>
+                  <DeleteButton onClick={handleDeleteList}>
+                      delete
+                  </DeleteButton>
+                  </TitleContainer>)}
             <Droppable droppableId={String(listID)}>
             {provided => (
                     <div
                     {...provided.droppableProps}
                     ref={provided.innerRef} > 
-                    { isEditing ?
-                    renderEditForm() :  
-                    ( <TitleContainer onClick={() => setIsEditing(true)}>
-                    <ListTitle>{listTitle}</ListTitle>
-                    <DeleteButton onClick={handleDeleteList}>
-                      delete
-                    </DeleteButton>
-                  </TitleContainer>)}
+                   
                     
                     { cards.map((card, index) => (
                     <CardComponent key={card.id} text={card.text} id={card.id} index={index} listID={listID}/> ))
