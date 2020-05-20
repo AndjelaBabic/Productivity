@@ -1,5 +1,5 @@
-import {CONSTANTS} from "../actions"; 
-import { addList } from "../util/APIUtil";
+import {CONSTANTS } from "../actions"; 
+import { addList, editListTitle, editCardList, deleteList } from "../util/APIUtil";
 
 const initialState = {
     "list-0": {
@@ -66,6 +66,11 @@ const listsReducer = (state = initialState, action) => {
                 const listEnd = state[droppableIdEnd];
                 // add card on the end list
                 listEnd.cards.splice(droppableIndexEnd, 0, ...card);
+
+                let cardToUpdate = {}; 
+                cardToUpdate.cardid = card[0]; 
+                cardToUpdate.listid = listEnd.id; 
+                editCardList(cardToUpdate); 
                 return {
                     ...state,
                     [droppableIdStart]: listStart,
@@ -84,6 +89,10 @@ const listsReducer = (state = initialState, action) => {
             const { listID, listTitle } = action.payload;
             const list = state[listID];
             list.title = listTitle;
+            let listToEdit = {}; 
+            listToEdit.listid = list.id; 
+            listToEdit.title = list.title; 
+            editListTitle(listToEdit); 
             return { ...state, [listID]: list };
           }
         
@@ -91,6 +100,9 @@ const listsReducer = (state = initialState, action) => {
             const { listID } = action.payload;
             const newState = state;
             delete newState[listID];
+            let listToDelete = {}; 
+            listToDelete.listid = listID;
+            deleteList(listToDelete);
             return newState;      
           }
         

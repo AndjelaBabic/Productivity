@@ -55,3 +55,43 @@ export function addCard(cardRequest) {
         method: 'POST',
         body: JSON.stringify(cardRequest)
 }); }
+
+export function editCardTitle(cardRequest) {
+    console.log( JSON.stringify(cardRequest));
+    return request({
+        url: API_BASE_URL + Routes.EDIT_CARD_TITLE,
+        method: 'PUT',
+        body: JSON.stringify(cardRequest)
+}); }
+
+export function editCardList(cardRequest) {
+    console.log( JSON.stringify(cardRequest));
+    return request({
+        url: API_BASE_URL + Routes.EDIT_CARD_LIST,
+        method: 'PUT',
+        body: JSON.stringify(cardRequest)
+}); }
+
+export function editListTitle(listRequest) {
+    console.log( JSON.stringify(listRequest));
+    return request({
+        url: API_BASE_URL + Routes.EDIT_LIST_TITLE,
+        method: 'PUT',
+        body: JSON.stringify(listRequest)
+}); }
+
+export function deleteList(listRequest) {
+    console.log( JSON.stringify(listRequest));
+    return request({
+        url: API_BASE_URL + Routes.DELETE_LIST,
+        method: 'DELETE',
+        body: JSON.stringify(listRequest)
+}); }
+
+export function deleteCard(cardRequest) {
+    console.log( JSON.stringify(cardRequest));
+    return request({
+        url: API_BASE_URL + Routes.DELETE_CARD,
+        method: 'DELETE',
+        body: JSON.stringify(cardRequest)
+}); }

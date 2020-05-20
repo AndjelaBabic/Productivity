@@ -1,5 +1,5 @@
 import { CONSTANTS } from "../actions";
-import { addCard } from "../util/APIUtil";
+import { addCard, editCardTitle, deleteCard } from "../util/APIUtil";
 
 const initialState = {
   "card-0": {
@@ -31,6 +31,10 @@ const cardsReducer = (state = initialState, action) => {
         const { cardID, newText } = action.payload;
         const card = state[cardID];
         card.text = newText;
+        let cardToEdit = {}; 
+        cardToEdit.cardid = cardID; 
+        cardToEdit.title = card.text; 
+        editCardTitle(cardToEdit); 
         return { ...state, [`card-${cardID}`]: card };
       }
   
@@ -38,6 +42,9 @@ const cardsReducer = (state = initialState, action) => {
         const { cardID } = action.payload;
         const newState = state;
         delete newState[cardID];
+        let cardToDelete = {}; 
+        cardToDelete.cardid = cardID; 
+        deleteCard(cardToDelete); 
         return newState;
     }
     default:
