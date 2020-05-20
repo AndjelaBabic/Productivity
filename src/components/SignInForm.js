@@ -30,7 +30,7 @@ class SignInForm extends React.Component {
         // Prevent a submit button from submitting a form
         e.preventDefault();
         let loginRequest = {}; 
-        loginRequest.username = this.state.email; 
+        loginRequest.email = this.state.email; 
         loginRequest.password = this.state.password; 
         login(loginRequest)
             .then(response => {

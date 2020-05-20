@@ -1,4 +1,5 @@
 import {CONSTANTS} from "../actions";
+import { addBoard } from "../util/APIUtil";
 
 let listID = 0;
 
@@ -21,6 +22,11 @@ const boardsReducer = (state = initialState, action) => {
               title,
               lists: []
             };
+            let board = {};
+            board.boardId = newBoard.id;
+            board.title = newBoard.title; 
+            board.userId = 1; // TODO: change this later to currently logged in USER_ID 
+            addBoard(board);
             return { ...state, [newID]: newBoard };
         }
 

@@ -1,4 +1,5 @@
 import { CONSTANTS } from "../actions";
+import { addCard } from "../util/APIUtil";
 
 const initialState = {
   "card-0": {
@@ -18,7 +19,12 @@ const cardsReducer = (state = initialState, action) => {
           id: `card-${id}`,
           list: listID
         };
-  
+
+        let cardToInsert = {};
+        cardToInsert.cardid = newCard.id; 
+        cardToInsert.title = newCard.text;
+        cardToInsert.listid = newCard.list;   
+        addCard(cardToInsert); 
         return { ...state, [`card-${id}`]: newCard };
     }
     case CONSTANTS.EDIT_CARD: {
