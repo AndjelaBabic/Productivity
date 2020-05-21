@@ -95,3 +95,29 @@ export function deleteCard(cardRequest) {
         method: 'DELETE',
         body: JSON.stringify(cardRequest)
 }); }
+
+export function loadBoards() {
+    return request({
+        url: "http://www.mocky.io/v2/5ec6ec022f00007600426ecc",
+        method: 'GET'
+}); }
+
+export function loadLists() {
+    return request({
+        url: "http://www.mocky.io/v2/5ec6ec4f2f00008500426ed1",
+        method: 'GET'
+}); }
+
+export function loadCards() {
+    return request({
+        url: "http://www.mocky.io/v2/5ec6ecca2f00007e00426ed4",
+        method: 'GET'
+}); }
+
+export function loadBoardOrder() {
+    return request({
+        url: "http://www.mocky.io/v2/5ec6efa62f00007200426eeb",
+        method: 'GET'
+}); }
+
+

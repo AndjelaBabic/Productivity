@@ -15,3 +15,9 @@ export const addBoard = title => {
     payload: {title, id}
   };
 };
+
+export const fetchBoards = () =>  {
+  return {
+    type: CONSTANTS.LOAD_DATA 
+  }
+}

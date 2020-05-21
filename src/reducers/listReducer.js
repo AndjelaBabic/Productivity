@@ -1,18 +1,27 @@
 import {CONSTANTS } from "../actions"; 
-import { addList, editListTitle, editCardList, deleteList } from "../util/APIUtil";
+import { addList, editListTitle, editCardList, deleteList, loadLists } from "../util/APIUtil";
 
-const initialState = {
-    "list-0": {
-        title: "Last Episode",
-        id: `list-0`,
-        cards: ["card-0"], 
-        board: "board-0"
-   }
-};
+const initialState = {}
 
 const listsReducer = (state = initialState, action) => {
     console.log(action);
     switch (action.type){
+        case CONSTANTS.LOAD_DATA: {
+            let newState = {}; 
+            loadLists().then(function (result) {
+              result.forEach(element => {
+                let newList = {};
+                newList.id = element.listid; 
+                newList.title = element.title; 
+                newList.cards = element.cardids;
+                newList.board = element.boardid;
+                newState = { ...newState, [ `${newList.id}`]: newList };
+              });
+              console.log(newState);
+              return newState;    
+            });
+            return newState;
+          }
         case CONSTANTS.ADD_LIST:{
             const { title, boardID, id } = action.payload;
             const newList = {

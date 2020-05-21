@@ -1,8 +1,8 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import BoardThumbnail from "./styled/BoardThumbnail";
 import styled from "styled-components";
 
-import { addBoard } from "../actions";
+import { addBoard, fetchBoards } from "../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -46,6 +46,11 @@ const CreateInput = styled.input`
 const Home = ({ boards, boardOrder, dispatch }) => {
     const [boardTitle, setBoardTitle] = useState(""); 
 
+    useEffect(() => {
+      console.log("component will mount");
+     // dispatch(fetchBoards());   
+    });
+    
     const handleSubmit = e => {
        e.preventDefault(); 
        dispatch(addBoard(boardTitle)); 
@@ -83,7 +88,8 @@ const Home = ({ boards, boardOrder, dispatch }) => {
 
     return (
     <HomeContainer>
-        <Thumbnails>{renderBoards()}</Thumbnails>
+        <Thumbnails>{
+        !boardOrder  ? renderBoards() : <div> loading </div> }</Thumbnails>
         {renderCreateBoard()}
     </HomeContainer>
     );
