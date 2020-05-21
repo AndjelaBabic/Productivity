@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Thumbnail = styled.div`
   height: 280px;
   width: 280px;
-  background: yellow;
+  background: #e4e4e459;
   padding: 10px;
   margin: 8px;
   display: flex;
@@ -15,8 +15,8 @@ const Thumbnail = styled.div`
   box-shadow: 0 2px 4px grey;
 `;
 
-const Title = styled.h4`
-  color: red;
+const Title = styled.h2`
+  color: white;
   text-decoration: none;
 `;
 

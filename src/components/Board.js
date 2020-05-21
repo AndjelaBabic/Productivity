@@ -41,6 +41,7 @@ class Board extends PureComponent {
 
         const listOrder = board.lists;
         return (
+          <div style={{marginLeft: "15px"}}>
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Link to="/home">Go Back</Link>
                 <h2>My Board</h2>
@@ -69,6 +70,7 @@ class Board extends PureComponent {
               }
             </Droppable>
             </DragDropContext>
+            </div>
         );
     }
 }
