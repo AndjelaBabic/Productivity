@@ -98,26 +98,30 @@ export function deleteCard(cardRequest) {
 
 export function loadBoards() {
     return request({
-        url: "http://www.mocky.io/v2/5ec6ec022f00007600426ecc",
-        method: 'GET'
+        url: API_BASE_URL + Routes.GET_BOARDS + "?userid=1", // todo update this later 
+        method: 'GET',
+        async: true
 }); }
 
 export function loadLists() {
     return request({
-        url: "http://www.mocky.io/v2/5ec6ec4f2f00008500426ed1",
-        method: 'GET'
+        url: API_BASE_URL + Routes.GET_LISTS,
+        method: 'GET', 
+        async: true
 }); }
 
 export function loadCards() {
     return request({
-        url: "http://www.mocky.io/v2/5ec6ecca2f00007e00426ed4",
-        method: 'GET'
+        url: API_BASE_URL + Routes.GET_CARDS,
+        method: 'GET', 
+        async: true 
 }); }
 
 export function loadBoardOrder() {
     return request({
-        url: "http://www.mocky.io/v2/5ec6efa62f00007200426eeb",
-        method: 'GET'
+        url: API_BASE_URL + Routes.GET_BOARD_ORDER + "?userid=1", // todo update this lates
+        method: 'GET', 
+        async: true 
 }); }
 
 

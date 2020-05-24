@@ -1,24 +1,13 @@
 import { CONSTANTS } from "../actions";
-import { addCard, editCardTitle, deleteCard, loadCards } from "../util/APIUtil";
+import { addCard, editCardTitle, deleteCard } from "../util/APIUtil";
 
 const initialState = {};
 
 const cardsReducer = (state = initialState, action) => {
+  console.log(state);
   switch (action.type) {
-    case CONSTANTS.LOAD_DATA: {
-      let newState = {}; 
-      loadCards().then(function (result) {
-        result.forEach(element => {
-          let newCard = {};
-          newCard.id = element.cardid; 
-          newCard.text = element.title; 
-          newCard.list = element.listid;
-          newState = { ...newState, [ `${newCard.id}`]: newCard };
-        });
-        console.log(newState);
-        return newState;    
-      });
-      return newState; 
+    case CONSTANTS.LOAD_CARDS: {
+      return action.payload;
     }
 
     case CONSTANTS.ADD_CARD: {

@@ -22,3 +22,10 @@ export const deleteCard = (cardID, listID) => {
         payload: {cardID, listID}
     }; 
 };
+
+export const fetchCards = payload =>  {
+    return {
+      type: CONSTANTS.LOAD_CARDS,
+      payload
+    };
+  };

@@ -62,3 +62,10 @@ export const deleteList = listID => {
     });
   };
 };
+
+export const fetchLists = payload =>  {
+  return {
+    type: CONSTANTS.LOAD_LISTS,
+    payload
+  };
+};

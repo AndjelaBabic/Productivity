@@ -1,20 +1,12 @@
 import { CONSTANTS } from "../actions";
-import { loadBoardOrder } from "../util/APIUtil";
 
 const initialState = [];
 
 const boardOrderReducer = (state = initialState, action) => {
+  console.log(state);
     switch (action.type) {
-      case CONSTANTS.LOAD_DATA: {
-        let newState = {}; 
-        loadBoardOrder().then(function (result) {
-          result.forEach(element => {
-            newState =[...newState, `${element}`];
-          });
-          console.log(newState);
-          return newState;    
-        });
-        return {};
+      case CONSTANTS.LOAD_BOARD_ORDER: {
+        return action.payload;
       }
 
     case CONSTANTS.ADD_BOARD: {

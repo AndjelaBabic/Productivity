@@ -1,29 +1,15 @@
 import {CONSTANTS} from "../actions";
-import { addBoard, loadBoards } from "../util/APIUtil";
-
-let listID = 0;
+import { addBoard } from "../util/APIUtil";
 
 const initialState = {};
 
 const boardsReducer = (state = initialState, action) => {
+  console.log(state);
     console.log(action);
     switch(action.type){
-        case CONSTANTS.LOAD_DATA: {
-          let newState = {}; 
-          loadBoards().then(function (result) {
-            result.forEach(element => {
-              let newBoard = {};
-              newBoard.id = element.boardid; 
-              newBoard.lists = element.listids; 
-              newBoard.title = element.title;
-              newState = { ...newState, [ `${newBoard.id}`]: newBoard };
-            });
-            console.log(newState);
-            return newState;    
-          });
-          return {};
+        case CONSTANTS.LOAD_BOARD: {
+          return action.payload; 
         }
-
         case CONSTANTS.ADD_BOARD: {
             const {title, id} = action.payload;
             const newID = `board-${id}`;

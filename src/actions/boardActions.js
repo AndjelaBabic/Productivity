@@ -16,8 +16,16 @@ export const addBoard = title => {
   };
 };
 
-export const fetchBoards = () =>  {
+export const fetchBoards = payload =>  {
   return {
-    type: CONSTANTS.LOAD_DATA 
-  }
-}
+    type: CONSTANTS.LOAD_BOARD,
+    payload
+  };
+};
+
+export const fetchBoardOrder = payload =>  {
+  return {
+    type: CONSTANTS.LOAD_BOARD_ORDER,
+    payload
+  };
+};

@@ -7,5 +7,9 @@ export const Routes = {
     DELETE_CARD: "/deleteCard",
     EDIT_LIST_TITLE: "/editListTitle",
     DELETE_LIST: "/deleteList",
-    ADD_BOARD: "/addBoard"
+    ADD_BOARD: "/addBoard", 
+    GET_BOARDS: "/getBoards",
+    GET_BOARD_ORDER: "/getBoardOrder",
+    GET_LISTS: "/getlists", 
+    GET_CARDS: "/getCards" 
 }; 
