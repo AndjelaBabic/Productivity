@@ -1,18 +1,15 @@
 import {CONSTANTS} from "../actions";
+import { addBoard } from "../util/APIUtil";
 
-let listID = 0;
-
-const initialState = {
-    "board-0": {
-      id: "board-0",
-      lists: ["list-0"],
-      title: "myboard"
-    }
-  };
+const initialState = {};
 
 const boardsReducer = (state = initialState, action) => {
+  console.log(state);
     console.log(action);
     switch(action.type){
+        case CONSTANTS.LOAD_BOARD: {
+          return action.payload; 
+        }
         case CONSTANTS.ADD_BOARD: {
             const {title, id} = action.payload;
             const newID = `board-${id}`;
@@ -21,6 +18,11 @@ const boardsReducer = (state = initialState, action) => {
               title,
               lists: []
             };
+            let board = {};
+            board.boardId = newBoard.id;
+            board.title = newBoard.title; 
+            board.userId = 1; // TODO: change this later to currently logged in USER_ID 
+            addBoard(board);
             return { ...state, [newID]: newBoard };
         }
 

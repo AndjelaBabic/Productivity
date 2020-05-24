@@ -1,10 +1,11 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import BoardThumbnail from "./styled/BoardThumbnail";
 import styled from "styled-components";
 
-import { addBoard } from "../actions";
+import { addBoard, fetchBoards, fetchLists, fetchBoardOrder, fetchCards } from "../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { loadBoards, loadLists, loadCards, loadBoardOrder } from "../util/APIUtil";
 
 const Thumbnails = styled.div`
   flex: 1;
@@ -46,6 +47,57 @@ const CreateInput = styled.input`
 const Home = ({ boards, boardOrder, dispatch }) => {
     const [boardTitle, setBoardTitle] = useState(""); 
 
+    useEffect( () => {
+         let newBoardsState = {}; 
+         (async() => { 
+            await loadBoards().then(function (result) {
+                result.forEach(element => {
+                  let newBoard = {};
+                  newBoard.id = element.boardId;
+                  newBoard.lists = element.listIds;
+                  newBoard.title = element.title;
+                  newBoardsState = { ...newBoardsState, [`${newBoard.id}`]: newBoard };
+                });
+                console.log(newBoardsState);
+                dispatch(fetchBoards(newBoardsState)); 
+              });
+        })();
+        let newListsState = {}; 
+         (async() => { 
+            await loadLists().then(function (result) {
+              result.forEach(element => {
+                let newList = {};
+                newList.id = element.listid; 
+                newList.title = element.title; 
+                newList.cards = element.cardids;
+                newList.board = element.boardid;
+                newListsState = { ...newListsState, [ `${newList.id}`]: newList };
+              });
+              console.log(newListsState);
+              dispatch(fetchLists(newListsState)); 
+            });
+        })();
+        let newCardsState = {}; 
+         (async() => { 
+            await loadCards().then(function (result) {
+              result.forEach(element => {
+                let newCard = {};
+                newCard.id = element.cardid; 
+                newCard.text = element.title; 
+                newCard.list = element.listid;
+                newCardsState = { ...newCardsState, [ `${newCard.id}`]: newCard };
+              });
+              console.log(newCardsState);
+              dispatch(fetchCards(newCardsState)); 
+            });
+        })();
+         (async() => { 
+            await loadBoardOrder().then(async function (result) {
+              dispatch(fetchBoardOrder(result))  
+          });
+        })();  
+    }, []);
+    
     const handleSubmit = e => {
        e.preventDefault(); 
        dispatch(addBoard(boardTitle)); 
@@ -83,7 +135,11 @@ const Home = ({ boards, boardOrder, dispatch }) => {
 
     return (
     <HomeContainer>
-        <Thumbnails>{renderBoards()}</Thumbnails>
+        <Thumbnails>{
+          
+        (boardOrder && boardOrder.length>0)  ? 
+                renderBoards() :
+                <div> loading{console.log("home")} </div> }</Thumbnails>
         {renderCreateBoard()}
     </HomeContainer>
     );
@@ -93,5 +149,6 @@ const mapStateToProps = state => ({
   boards: state.boards,
   boardOrder: state.boardOrder
 });
+
 
 export default connect(mapStateToProps)(Home);

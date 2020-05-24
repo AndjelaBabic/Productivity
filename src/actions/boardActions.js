@@ -15,3 +15,17 @@ export const addBoard = title => {
     payload: {title, id}
   };
 };
+
+export const fetchBoards = payload =>  {
+  return {
+    type: CONSTANTS.LOAD_BOARD,
+    payload
+  };
+};
+
+export const fetchBoardOrder = payload =>  {
+  return {
+    type: CONSTANTS.LOAD_BOARD_ORDER,
+    payload
+  };
+};
