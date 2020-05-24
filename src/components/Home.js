@@ -15,6 +15,7 @@ const Thumbnails = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 2%;
 `;
 
 const HomeContainer = styled.div`

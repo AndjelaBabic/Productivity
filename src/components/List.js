@@ -8,7 +8,7 @@ import { editListTitle, deleteList } from "../actions";
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const ListContainer = styled.div`
-  background-color: #dfe3e6;
+  background-color: #e4e4e459;
   border-radius: 3px;
   width: 300px;
   height: 100%;

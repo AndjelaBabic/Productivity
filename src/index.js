@@ -12,7 +12,7 @@ const { persistor, store } = Store();
 
 const GlobalStyle = createGlobalStyle`
   html {
-    background-color: grey;
+    background-color: #2E4158;
     box-sizing: border-box;
     transition: all 0.5s ease-in;
   }
