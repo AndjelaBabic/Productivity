@@ -4,11 +4,13 @@ import boardsReducer from "./boardsReducer";
 import boardOrderReducer from "./boardOrderReducer";
 import activeBoardReducer from "./activeBoardReducer";
 import cardsReducer from "./cardsReducer";
+import userReducer from "./userReducer";
 
 export default combineReducers({
     lists: listsReducer, 
     boards: boardsReducer,
     activeBoard: activeBoardReducer, 
     boardOrder: boardOrderReducer, 
-    cards: cardsReducer
+    cards: cardsReducer, 
+    user: userReducer
 }); 

@@ -45,9 +45,10 @@ const CreateInput = styled.input`
   align-self: center;
 `;
 
-const Home = ({ boards, boardOrder, dispatch }) => {
+const Home = ({ boards, boardOrder, user, dispatch }) => {
     const [boardTitle, setBoardTitle] = useState(""); 
 
+    // TODO refactor this, all this api calls 
     useEffect( () => {
          let newBoardsState = {}; 
          (async() => { 
@@ -136,11 +137,13 @@ const Home = ({ boards, boardOrder, dispatch }) => {
 
     return (
     <HomeContainer>
+        {(user && user.isAuthenticated === true) ? "LOGGED IN!" :  "NOT LOGGED IN!" }
         <Thumbnails>{
-          
-        (boardOrder && boardOrder.length>0)  ? 
+                (boardOrder && boardOrder.length>0)  ? 
                 renderBoards() :
-                <div> loading{console.log("home")} </div> }</Thumbnails>
+                <div> loading </div> 
+          }
+        </Thumbnails>
         {renderCreateBoard()}
     </HomeContainer>
     );
@@ -148,7 +151,8 @@ const Home = ({ boards, boardOrder, dispatch }) => {
 
 const mapStateToProps = state => ({
   boards: state.boards,
-  boardOrder: state.boardOrder
+  boardOrder: state.boardOrder, 
+  user: state.user
 });
 
 

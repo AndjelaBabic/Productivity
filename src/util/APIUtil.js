@@ -32,6 +32,13 @@ export function login(loginRequest) {
         body: JSON.stringify(loginRequest)
 });}
 
+export function register(registrationRequest) {
+    return request({
+        url: API_BASE_URL + "/signup",
+        method: 'POST',
+        body: JSON.stringify(registrationRequest)
+});}
+
 export function addBoard(boardRequest) {
     console.log( JSON.stringify(boardRequest));
     return request({

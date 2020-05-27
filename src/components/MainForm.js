@@ -4,7 +4,7 @@ import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import '../css/Login.css';
 
-function MainForm() {
+function MainForm(props) {
   return (
     <div className="App">
     <Router>
@@ -18,7 +18,7 @@ function MainForm() {
             <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink>
             <NavLink exact to="/" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
           </div>
-          <Route exact path="/" component={SignUpForm}>
+          <Route exact path="/"  render={(props) => <SignUpForm {...props}  />}>
           </Route>
           <Route path="/signin" component={SignInForm}>
           </Route>

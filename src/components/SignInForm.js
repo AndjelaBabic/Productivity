@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { login } from '../util/APIUtil';
 import { notification } from 'antd';
 import '../css/Login.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { setUser } from '../actions/userActions';
+import { connect } from "react-redux"; 
+
 
 class SignInForm extends React.Component {
     constructor() {
@@ -34,8 +38,13 @@ class SignInForm extends React.Component {
         loginRequest.password = this.state.password; 
         login(loginRequest)
             .then(response => {
-                console.log('Found user :');
-                console.log(response);
+                console.log(response); 
+                let user = {
+                    email: this.state.email, 
+                    password: this.state.password, 
+                    isAuthenticated: true 
+                }
+                this.props.dispatch(setUser(user));
             }).catch(error => {
                 if (error.status === 401) {
                     notification.error({
@@ -55,6 +64,7 @@ class SignInForm extends React.Component {
 
     render() {
         return (
+          
             <div className="FormCenter">
                 <form onSubmit={this.handleSubmit} className="FormFields">
 
@@ -77,5 +87,8 @@ class SignInForm extends React.Component {
             </div>)
     }
 }
-
-export default SignInForm; 
+const mapStateToProps = state => ({
+    user: state.user
+  });
+  
+export default connect(mapStateToProps)(SignInForm);

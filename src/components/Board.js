@@ -32,16 +32,17 @@ class Board extends PureComponent {
       }
     
     render(){
-        const { lists, match, boards, cards } = this.props; 
+        const { lists, match, boards, cards, user } = this.props; 
         const { boardID } = match.params;
         const board = boards[boardID];
         if (!board) {
           return <p>Board not found</p>;
         }
-
+       
         const listOrder = board.lists;
         return (
           <div style={{marginLeft: "15px"}}>
+            { (user && user.isAuthenticated === true) ? "LOGGED IN!" :  "NOT LOGGED IN!"}
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Link to="/home">Go Back</Link>
                 <h2>My Board</h2>
@@ -78,7 +79,8 @@ class Board extends PureComponent {
 const mapStateToProps = state => ({
     lists: state.lists,
     boards: state.boards, 
-    cards: state.cards
+    cards: state.cards, 
+    user: state.user
 })
 
 export default  connect(mapStateToProps)(Board); 

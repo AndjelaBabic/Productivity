@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from "react-router-dom";
 import '../css/Login.css';
+import { register } from '../util/APIUtil';
+import { connect } from "react-redux"; 
 
-class SignUpForm extends Component {
+class SignUpForm extends PureComponent {
+
     constructor() {
         super();
         this.state = {
@@ -27,8 +30,28 @@ class SignUpForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
+        let registrationRequest = {}; 
+        registrationRequest.email = this.state.email; 
+        registrationRequest.password = this.state.password; 
+        registrationRequest.fullName = this.state.name; 
+        register(registrationRequest).then(response => {
+                 console.log('registration went ...  :');
+                 console.log(response);
+                // TODO NOTIFICATION
+            }).catch(error => {
+                if (error.status === 401) {
+                    // notification.error({
+                    //     message: 'Error!',
+                    //     description: 'Your Username or Password is incorrect. Please try again!'
+                    // });
+                } else {
+                    // notification.error({
+                    //     message: 'Error!',
+                    //     description: error.message || 'Sorry! Something went wrong. Please try again!'
+                    // });
+                }
+            });
+        //console.log('The form was submitted with the following data:');
         console.log(this.state);
     }
 
@@ -64,8 +87,15 @@ class SignUpForm extends Component {
                         <Link to="/signin" className="FormField__Link"> Already a member? </Link>
                     </div>
                 </form>
+                {/* {this.state.registered ? <Redirect to="/home"> </Redirect> : <div> waiting </div>} */}
             </div>)
     }
 }
 
-export default SignUpForm; 
+const mapStateToProps = state => ({
+    user: state.user
+  });
+  
+  
+  export default connect(mapStateToProps)(SignUpForm);
+  
