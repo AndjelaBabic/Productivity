@@ -4,11 +4,16 @@ import MainForm from '../components/MainForm';
 import Board from '../components/Board';
 import Home from '../components/Home';
 import { connect } from "react-redux"; 
+import { logoutUser } from "../actions";
 
 class App extends PureComponent {
   
   constructor(props){
     super(props);
+  }
+
+  logoutUser = () => {
+    this.props.dispatch(logoutUser());
   }
 
   render(){
@@ -18,11 +23,11 @@ class App extends PureComponent {
       <div style={{color: "white"}}>
        
       <Router>
-      {(user && user.isAuthenticated === true) ? <Redirect to="/home"> </Redirect> : console.log('wait') }
+      {user.isAuthenticated === true ? <Redirect to="/home"> </Redirect> : <Redirect to="/"> </Redirect> }
         <Switch>
-        <Route exact path="/" render={(props) => <MainForm  {...props}   />}></Route>
-        <Route exact path="/home/:boardID" component={Board}></Route>
-        <Route exact path="/home" component={Home}></Route>
+        <Route exact path="/" render={(props) => <MainForm  {...props}/>}></Route>
+        <Route exact path="/home/:boardID" render={(props) => <Board  {...props} onLogout={this.logoutUser}/>}></Route>
+        <Route exact path="/home" render={(props) => <Home {...props} onLogout={this.logoutUser}/>}></Route>
         </Switch>
       </Router>
       </div>

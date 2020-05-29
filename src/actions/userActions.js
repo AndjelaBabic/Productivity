@@ -7,3 +7,9 @@ export const setUser = (user) => {
         payload: user
     }; 
 };
+
+export const logoutUser = () => {
+    return {
+        type: CONSTANTS.LOGOUT, 
+    }; 
+};

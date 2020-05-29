@@ -4,7 +4,7 @@ import ActionButton from "./ActionButton";
 import ListContainer from "./styled/ListContainer"; 
 import List from "./List";
 import { connect } from "react-redux"; 
-import { sort, setActiveBoard } from "../actions";
+import { sort, setActiveBoard, logoutUser } from "../actions";
 import { Link } from "react-router-dom";
 
 class Board extends PureComponent {
@@ -30,7 +30,8 @@ class Board extends PureComponent {
           draggableId,
           type)); 
       }
-    
+
+
     render(){
         const { lists, match, boards, cards, user } = this.props; 
         const { boardID } = match.params;
@@ -45,6 +46,7 @@ class Board extends PureComponent {
             { (user && user.isAuthenticated === true) ? "LOGGED IN!" :  "NOT LOGGED IN!"}
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Link to="/home">Go Back</Link>
+                <Link to="/" onClick={this.props.onLogout}>Logout</Link>
                 <h2>My Board</h2>
             <Droppable droppableId="all-lists" direction="horizontal" type="list">
               { provided => (

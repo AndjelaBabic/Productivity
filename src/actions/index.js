@@ -1,6 +1,7 @@
 export * from "./listsActions"; 
 export * from "./cardActions"; 
 export * from "./boardActions";
+export * from "./userActions";
 
 export const CONSTANTS = {
     ADD_CARD: "ADD_CARD", 
@@ -16,5 +17,6 @@ export const CONSTANTS = {
     LOAD_BOARD: "LOAD_BOARD",
     LOAD_BOARD_ORDER: "LOAD_BOARD_ORDER",
     LOAD_CARDS: "LOAD_CARDS", 
-    SET_LOGGED_IN_USER: "SET_LOGGED_IN_USER"
+    SET_LOGGED_IN_USER: "SET_LOGGED_IN_USER", 
+    LOGOUT: "LOGOUT"
 }; 

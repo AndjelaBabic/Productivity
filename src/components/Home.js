@@ -45,7 +45,7 @@ const CreateInput = styled.input`
   align-self: center;
 `;
 
-const Home = ({ boards, boardOrder, user, dispatch }) => {
+const Home = ({ boards, boardOrder, user, dispatch, onLogout }) => {
     const [boardTitle, setBoardTitle] = useState(""); 
 
     // TODO refactor this, all this api calls 
@@ -137,7 +137,9 @@ const Home = ({ boards, boardOrder, user, dispatch }) => {
 
     return (
     <HomeContainer>
+        <Link to="/" onClick={onLogout}>Logout</Link>
         {(user && user.isAuthenticated === true) ? "LOGGED IN!" :  "NOT LOGGED IN!" }
+        
         <Thumbnails>{
                 (boardOrder && boardOrder.length>0)  ? 
                 renderBoards() :

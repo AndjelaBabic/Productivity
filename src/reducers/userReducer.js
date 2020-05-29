@@ -1,6 +1,8 @@
 import { CONSTANTS } from "../actions";
 
-const initialState = {}; 
+const initialState = {
+    isAuthenticated: false
+}; 
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -12,6 +14,11 @@ const userReducer = (state = initialState, action) => {
             isAuthenticated: isAuthenticated
         }
         return state;
+      }
+      case CONSTANTS.LOGOUT:{
+          return {
+            isAuthenticated: false
+          }; 
       }
 
     default:
