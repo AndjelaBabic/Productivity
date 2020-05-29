@@ -5,12 +5,14 @@ import Board from '../components/Board';
 import Home from '../components/Home';
 import { connect } from "react-redux"; 
 import { logoutUser } from "../actions";
+import { NotificationContainer } from 'react-notifications';
 
 class App extends PureComponent {
   
   constructor(props){
     super(props);
   }
+
 
   logoutUser = () => {
     this.props.dispatch(logoutUser());
@@ -19,9 +21,8 @@ class App extends PureComponent {
   render(){
     const { user } = this.props; 
     return (
-     
       <div style={{color: "white"}}>
-       
+        <NotificationContainer/>
       <Router>
       {user.isAuthenticated === true ? <Redirect to="/home"> </Redirect> : <Redirect to="/"> </Redirect> }
         <Switch>

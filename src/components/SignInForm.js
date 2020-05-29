@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { login } from '../util/APIUtil';
 import { notification } from 'antd';
 import '../css/Login.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { setUser } from '../actions/userActions';
 import { connect } from "react-redux"; 
 

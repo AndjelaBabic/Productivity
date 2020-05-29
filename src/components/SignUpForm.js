@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import '../css/Login.css';
 import { register } from '../util/APIUtil';
 import { connect } from "react-redux"; 
+import 'react-notifications-component/dist/theme.css';
+import { createNotification } from '../util/Notifications';
 
 class SignUpForm extends PureComponent {
 
@@ -17,6 +19,10 @@ class SignUpForm extends PureComponent {
         this.handleChange = this.handleChange.bind(this); 
         this.handleSubmit = this.handleSubmit.bind(this); 
     }
+
+    createSuccessNotification = createNotification('registration_success');
+    createErrorNotification = createNotification('registration_error');
+    createDefaultErrorNotification = createNotification('other_error')
 
     handleChange(e) {
         let target = e.target;
@@ -37,18 +43,12 @@ class SignUpForm extends PureComponent {
         register(registrationRequest).then(response => {
                  console.log('registration went ...  :');
                  console.log(response);
-                // TODO NOTIFICATION
+                this.createSuccessNotification();
             }).catch(error => {
                 if (error.status === 401) {
-                    // notification.error({
-                    //     message: 'Error!',
-                    //     description: 'Your Username or Password is incorrect. Please try again!'
-                    // });
+                    this.createErrorNotification();
                 } else {
-                    // notification.error({
-                    //     message: 'Error!',
-                    //     description: error.message || 'Sorry! Something went wrong. Please try again!'
-                    // });
+                    this.createDefaultErrorNotification();
                 }
             });
         //console.log('The form was submitted with the following data:');
@@ -57,6 +57,7 @@ class SignUpForm extends PureComponent {
 
     render() {
         return (
+            
             <div className="FormCenter">
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     <div className="FormField">
